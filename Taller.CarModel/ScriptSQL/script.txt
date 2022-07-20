@@ -1,0 +1,6 @@
+SELECT CONCAT(c.FirstName, ' ', c.LastName) AS FirstName, Age, o.OrderID, o.DateCreated, o.MethodofPurchase as 'Purchase Method', od.ProductNumber, od.ProductOrigin
+FROM OrdersDetails od
+INNER JOIN Orders o ON od.OrderID = o.OrderID
+INNER JOIN Customer c ON o.PersonID = c.PersonID
+INNER JOIN Products p ON od.ProductID = p.ProductID
+WHERE p.ProductID = 1112222333

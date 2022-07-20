@@ -1,0 +1,47 @@
+﻿@model Taller.CarModel.Models.Car
+
+@{
+    ViewData["Title"] = "Cars";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@{
+    if(Convert.ToBoolean(ViewData["message"])){
+        <div class="alert alert-success text-center">
+            <h1>Great JOB!</h1>
+        </div>
+    }
+    else {
+        <h2>NOTHING</h2>
+    }
+}*@
+
+<div class="border backgroundWhite my-5 p-3">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">Cars</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-action="Upsert" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a>
+        </div>
+    </div>
+
+    <table id="tblData" class="table table-striped table-bordered" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Doors</th>
+                <th>Color</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/cars.js"></script>
+}
