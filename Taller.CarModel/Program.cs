@@ -1,7 +1,12 @@
+using Taller.CarModel.Data.Repository;
+using Taller.CarModel.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton< IRepository<Car>, CarRepository>();
 
 var app = builder.Build();
 
