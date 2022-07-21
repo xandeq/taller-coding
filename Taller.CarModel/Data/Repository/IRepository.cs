@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-
-namespace Taller.CarModel.Data.Repository
+﻿namespace Taller.CarModel.Data.Repository
 {
     public interface IRepository<T>
     {

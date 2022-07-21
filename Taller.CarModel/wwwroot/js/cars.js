@@ -23,7 +23,7 @@ function loadDataTable() {
                     return `<div class="text-center">
                         <input type="text" id="gtp${data}" name="gtp${data}" />
                         <a onclick="GuessThePrice(${data})" class="btn btn-info text-white" style='cursor: pointer; width: 100px'>
-                            <i class="far fa-question-mark"></i> Guess The Price
+                            <i class="far fa-question"></i> Guess The Price
                         </a>
                     </div>`;
                 },

@@ -8,11 +8,13 @@ namespace Taller.CarModel.Controllers
     {
         CarRepository _carRepository;
         IRepository<Car> _repository;
+        List<Car> _carList;
 
         public CarController(IRepository<Car> repository)
         {
             _repository = repository;
             _carRepository = new CarRepository();
+            _carList = _carRepository.Get().ToList();
         }
 
         public IActionResult Index()
@@ -27,7 +29,7 @@ namespace Taller.CarModel.Controllers
             {
                 return View(car);
             }
-            car = _carRepository.Get().ToList().FirstOrDefault(o => o.Id == id);
+            car = _carList.FirstOrDefault(o => o.Id == id);
             if (car == null)
             {
                 return NotFound();
@@ -43,15 +45,15 @@ namespace Taller.CarModel.Controllers
             {
                 if (car.Id == 0)
                 {
-                    car.Id = _carRepository.Get().ToList().OrderByDescending(u => u.Id).Select(s => s.Id).FirstOrDefault() + 1;
+                    car.Id = _carList.OrderByDescending(u => u.Id).Select(s => s.Id).FirstOrDefault() + 1;
                     _carRepository.Add(car);
                 }
                 else
                 {
-                    var index = _carRepository.Get().ToList().FindIndex(r => r.Id == car.Id);
+                    var index = _carList.FindIndex(r => r.Id == car.Id);
                     if (index != -1)
                     {
-                        _carRepository.Get().ToList()[(int)index] = car;
+                        _carList[(int)index] = car;
                     }
                 }
                 return RedirectToAction(nameof(Index));
@@ -62,7 +64,7 @@ namespace Taller.CarModel.Controllers
         [HttpPost("{id}/{price}")]
         public IActionResult GuessThePrice(int id, int price)
         {
-            Car car = _carRepository.Get().FirstOrDefault(o => o.Id == id);
+            Car car = _carList.FirstOrDefault(o => o.Id == id);
             int maxPrice = car.Price + 5000;
             int minPrice = car.Price - 5000;
             if (price <= maxPrice && price >= minPrice)
@@ -78,19 +80,19 @@ namespace Taller.CarModel.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Json(new { data = _carRepository.Get().ToList() });
+            return Json(new { data = _carList });
         }
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var objFromDb = _carRepository.Get().ToList().FirstOrDefault(x => x.Id == id);
+            var objFromDb = _carList.FirstOrDefault(x => x.Id == id);
             if (objFromDb == null)
             {
                 return Json(new { success = false, message = "Error while deleting." });
             }
 
-            _carRepository.Get().ToList().Remove(objFromDb);
+            _carList.Remove(objFromDb);
             return Json(new { success = true, message = "Delete successful." });
         }
     }
